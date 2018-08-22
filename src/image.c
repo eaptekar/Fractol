@@ -6,12 +6,12 @@
 /*   By: eaptekar <eaptekar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/19 20:54:39 by eaptekar          #+#    #+#             */
-/*   Updated: 2018/08/21 20:48:09 by eaptekar         ###   ########.fr       */
+/*   Updated: 2018/08/22 17:49:49 by eaptekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
- 
+
 // CHECK ALL MLX RETURNS
 
 int		pixel2image(t_fractol *f, int x, int y, int color)
@@ -31,48 +31,11 @@ int		pixel2image(t_fractol *f, int x, int y, int color)
 
 void	draw_image(t_fractol *f)
 {
-	int			x;
-	int			y;
-	double		a_0;
-	double		b_0;
-	double		a;
-	double		b;
-	double		a_2;
-	double		b_2;
-	int			n;
-	int			color;
-
 	f->img_ptr = mlx_new_image(f->mlx_ptr, WIN_SIZE, WIN_SIZE);
-	y = 0;
-	while (y < WIN_SIZE)
-	{
-		x = 0;
-		while (x < WIN_SIZE)
-		{
-			a_0 = (x  * f->size / WIN_SIZE) + f->center_x - (f->size / 2);
-			b_0 = (y  * f->size / WIN_SIZE) + f->center_y - (f->size / 2);
-			a = a_0;
-			b = b_0;
-			n = 0;
-			while (n < f->maxiter)
-			{
-				a_2 = a * a - b * b;
-				b_2 = 2 * a * b;
-				a = a_2 + a_0;
-				b = b_2 + b_0;
-				if (a * a + b * b > 4)
-					break;
-				n++;
-			}
-			if (n == f->maxiter)
-				color = 0x000000;
-			else
-				color = palette(n % 24);
-			pixel2image(f, x, y, color);
-			x++;
-		}
-		y++;
-	}
+	if (f->frac == 1)
+		draw_mandelbrot(f);
+	else if (f->frac == 2)
+		draw_julia(f);
 	mlx_put_image_to_window(f->mlx_ptr, f->win_ptr, f->img_ptr, 0, 0);
 }
 

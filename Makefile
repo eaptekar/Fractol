@@ -6,7 +6,7 @@
 #    By: eaptekar <eaptekar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/08/19 16:36:39 by eaptekar          #+#    #+#              #
-#    Updated: 2018/08/21 20:36:05 by eaptekar         ###   ########.fr        #
+#    Updated: 2018/08/22 18:10:03 by eaptekar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,10 @@ LIBFT	= -L$(P_LFT) -lft
 
 SRCS	=	main.c \
 			mandelbrot.c \
+			julia.c \
 			image.c \
-			zoom.c
+			zoom.c \
+			hooks.c
 
 SRC_DIR	= src/
 OBJ_DIR	= obj/
