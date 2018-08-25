@@ -6,7 +6,7 @@
 /*   By: eaptekar <eaptekar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/19 20:54:39 by eaptekar          #+#    #+#             */
-/*   Updated: 2018/08/22 17:49:49 by eaptekar         ###   ########.fr       */
+/*   Updated: 2018/08/25 21:16:59 by eaptekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,40 +32,54 @@ int		pixel2image(t_fractol *f, int x, int y, int color)
 void	draw_image(t_fractol *f)
 {
 	f->img_ptr = mlx_new_image(f->mlx_ptr, WIN_SIZE, WIN_SIZE);
+	f->palette = 1;
 	if (f->frac == 1)
 		draw_mandelbrot(f);
 	else if (f->frac == 2)
 		draw_julia(f);
+	else if (f->frac == 3)
+		draw_ship(f);
+	else if (f->frac == 4)
+		draw_tricorn(f);
+	else if (f->frac == 5)
+		draw_mcube(f);
+	else if (f->frac == 6)
+		draw_jcube(f);
+	else if (f->frac == 7)
+		draw_buffalo(f);
 	mlx_put_image_to_window(f->mlx_ptr, f->win_ptr, f->img_ptr, 0, 0);
 }
 
-int		palette(int	num)
+static int			clr_calc(t_color pick, int n)
 {
-	int		colors[24];
+	int		red;
+	int		green;
+	int		blue;
+	int		color;
 
-	colors[0] = 0xA00A1E;
-	colors[1] = 0x930A28;
-	colors[2] = 0x860A32;
-	colors[3] = 0x790A3C;
-	colors[4] = 0x6C0A46;
-	colors[5] = 0x5F0A50;
-	colors[6] = 0x520A5A;
-	colors[7] = 0x460A64;
-	colors[8] = 0x4B0A69;
-	colors[9] = 0x450B6C;
-	colors[10] = 0x3F0C70;
-	colors[11] = 0x3A0D74;
-	colors[12] = 0x340E78;
-	colors[13] = 0x2F0F7C;
-	colors[14] = 0x291080;
-	colors[15] = 0x241184;
-	colors[16] = 0x1E1288;
-	colors[17] = 0x19148C;
-	colors[18] = 0x1E1987;
-	colors[19] = 0x652E5A;
-	colors[20] = 0xAD442D;
-	colors[21] = 0xF55A00;
-	colors[22] = 0xFA5F00;
-	colors[23] = 0xFF6400;
-	return (colors[num]);
+	red = pick.start_red + (pick.end_red - pick.start_red) * n / pick.maxiter;
+	green = pick.start_green + (pick.end_green - pick.start_green) * n / pick.maxiter;
+	blue = pick.start_blue + (pick.end_blue - pick.start_blue) * n / pick.maxiter;
+	color = blue | (green << 8) | (red << 16);
+	return (color);
+}
+
+int				palette(t_fractol *f, int n)
+{
+	int		color;
+	t_color	pick;
+
+	// if (f->palette == 1)
+	// 	color = init(num);
+	// else if (f->palette == 2)
+	// 	color = mandel_wiki(num);
+	pick.start_red = 173;
+	pick.end_red = 0;
+	pick.start_green = 40;
+	pick.end_green = 250;
+	pick.start_blue = 73;
+	pick.end_blue = 218;
+	pick.maxiter = f->maxiter;
+	color = clr_calc(pick, n);
+	return (color);
 }

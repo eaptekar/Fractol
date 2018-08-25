@@ -6,7 +6,7 @@
 #    By: eaptekar <eaptekar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/08/19 16:36:39 by eaptekar          #+#    #+#              #
-#    Updated: 2018/08/22 18:10:03 by eaptekar         ###   ########.fr        #
+#    Updated: 2018/08/25 19:26:40 by eaptekar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,12 +17,12 @@ CFLAGS	= -Wall -Wextra -Werror
 MLX		= -lmlx -framework OpenGL -framework AppKit
 LIBFT	= -L$(P_LFT) -lft
 
-SRCS	=	main.c \
-			mandelbrot.c \
-			julia.c \
-			image.c \
-			zoom.c \
-			hooks.c
+SRCS	=	main.c		image.c		zoom.c		hooks.c	\
+			palettes.c 									\
+			fractals/mandelbrot.c	fractals/julia.c	\
+			fractals/burningship.c	fractals/tricorn.c	\
+			fractals/cubic_mandelbrot.c					\
+			fractals/cubic_julia.c	fractals/buffalo.c	\
 
 SRC_DIR	= src/
 OBJ_DIR	= obj/
@@ -44,7 +44,7 @@ $(NAME): $(OBJ)
 	@echo "\n$(NAME) is ready"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR) $(OBJ_DIR)/fractals
 	@$(CC) $(FLAGS) -o $@ -c $^ $(INC)
 	@echo -n ████████████
 

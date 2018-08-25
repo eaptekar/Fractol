@@ -6,7 +6,7 @@
 /*   By: eaptekar <eaptekar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/22 15:25:55 by eaptekar          #+#    #+#             */
-/*   Updated: 2018/08/22 19:30:07 by eaptekar         ###   ########.fr       */
+/*   Updated: 2018/08/25 18:32:18 by eaptekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,29 @@ int			exit_redcross(void *param)
 	return (0);
 }
 
+static void	fractal_change(int kcode, t_fractol *f)
+{
+	if (kcode == K_1)
+		f->frac = 1;
+	else if (kcode == K_2)
+		f->frac = 2;
+	else if (kcode == K_3)
+		f->frac = 3;
+	else if (kcode == K_4)
+		f->frac = 4;
+	else if (kcode == K_5)
+		f->frac = 5;
+	else if (kcode == K_6)
+		f->frac = 6;
+	else if (kcode == K_7)
+		f->frac = 7;
+	reset(f);
+}
+
 int			key_hook(int kcode, t_fractol *f)
 {
+	mlx_clear_window(f->mlx_ptr, f->win_ptr);
+	mlx_destroy_image(f->mlx_ptr, f->img_ptr);
 	if (kcode == K_ESC)
 	{
 		mlx_destroy_window(f->mlx_ptr, f->win_ptr);
@@ -28,6 +49,8 @@ int			key_hook(int kcode, t_fractol *f)
 	}
 	else if (kcode == K_SPACE)
 		reset(f);
+	else if ((kcode >= K_1 && kcode <= K_5) || kcode == K_7)
+		fractal_change(kcode, f);
 	else if (kcode == K_Q)
 	{
 		if (f->recalc)
@@ -35,6 +58,7 @@ int			key_hook(int kcode, t_fractol *f)
 		else
 			f->recalc = 1;
 	}
+	draw_image(f);
 	return (0);
 }
 
