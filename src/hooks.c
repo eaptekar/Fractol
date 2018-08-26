@@ -6,7 +6,7 @@
 /*   By: eaptekar <eaptekar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/22 15:25:55 by eaptekar          #+#    #+#             */
-/*   Updated: 2018/08/25 18:32:18 by eaptekar         ###   ########.fr       */
+/*   Updated: 2018/08/26 20:34:35 by eaptekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,13 @@ static void	fractal_change(int kcode, t_fractol *f)
 	reset(f);
 }
 
+static void		epilepsie(t_fractol *f)
+{
+	f->offset++;
+	if (f->offset == 5)
+		f->offset = 0;
+}
+
 int			key_hook(int kcode, t_fractol *f)
 {
 	mlx_clear_window(f->mlx_ptr, f->win_ptr);
@@ -51,6 +58,14 @@ int			key_hook(int kcode, t_fractol *f)
 		reset(f);
 	else if ((kcode >= K_1 && kcode <= K_5) || kcode == K_7)
 		fractal_change(kcode, f);
+	else if (kcode == K_N_PLUS)
+		zoom_center(f);
+	else if (kcode == K_A && f->palette >= 2)
+		f->palette--;
+	else if (kcode == K_D && f->palette <= 2)
+		f->palette++;
+	else if (kcode == K_TAB)
+		epilepsie(f);
 	else if (kcode == K_Q)
 	{
 		if (f->recalc)
@@ -61,6 +76,14 @@ int			key_hook(int kcode, t_fractol *f)
 	draw_image(f);
 	return (0);
 }
+
+int			release_hook(int kcode, t_fractol *f)
+{
+	if (kcode == K_TAB)
+		;
+	return (0);
+}
+
 
 int			mouse_hook(int kcode, int x, int y, t_fractol *f)
 {

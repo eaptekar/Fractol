@@ -6,17 +6,18 @@
 #    By: eaptekar <eaptekar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/30 13:42:15 by eaptekar          #+#    #+#              #
-#    Updated: 2018/08/07 21:20:55 by eaptekar         ###   ########.fr        #
+#    Updated: 2018/08/26 18:12:37 by eaptekar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
+NAME	= libft.a
 
-CC = gcc
+CC		= gcc
+FLAGS	= -Wall -Wextra -Werror -c
+LIB		= ar rc
+RLIB	= ranlib
 
-FLAGS = -Wall -Wextra -Werror -I includes/libft.h -c
-
-SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
+SRCS = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 	  ft_memchr.c ft_memcmp.c ft_strlen.c ft_strdup.c ft_strcpy.c \
 	  ft_strncpy.c ft_strcat.c ft_strncat.c ft_strlcat.c ft_strchr.c \
 	  ft_strrchr.c ft_strstr.c ft_strnstr.c ft_strcmp.c ft_strncmp.c \
@@ -31,20 +32,27 @@ SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 	  ft_abs.c ft_swap.c get_next_line.c ft_putendl_exit.c hex_to_int.c \
 	  deg_to_rad.c
 
-OBJ = $(SRC:%.c=%.o)
+SRC_DIR = src/
+OBJ_DIR	= obj/
+INC = -I includes/
+SRC = $(addprefix $(SRC_DIR),$(SRCS))
+OBJ = $(addprefix $(OBJ_DIR),$(OBJS))
 
-all: $(SRC) $(NAME)
+OBJS = $(SRCS:.c=.o)
 
-$(NAME):
-	@$(CC) $(FLAGS) $(SRC)
-	@ar rc $(NAME) $(OBJ)
-	@ranlib $(NAME)
+all: $(NAME)
 
-%.o: %.c
-	@$(CC) $(FLAGS) $<
+$(NAME): $(OBJ)
+	@$(LIB) $@ $(OBJ)
+	@$(RLIB) $(NAME)
+
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(FLAGS) $(INC) $^ -o $@
+	@echo -n █
 
 clean:
-	@rm -rf $(OBJ)
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
 	@rm -rf $(NAME)

@@ -6,7 +6,7 @@
 /*   By: eaptekar <eaptekar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/19 17:16:17 by eaptekar          #+#    #+#             */
-/*   Updated: 2018/08/25 20:55:57 by eaptekar         ###   ########.fr       */
+/*   Updated: 2018/08/26 20:34:47 by eaptekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include "mlx_keys_macos.h"
 
 # define WIN_SIZE		1024
-# define MAX_ITER		100
+# define MAX_ITER		200
 # define MIN_ITER		1
 
 # define ERROR(X)		ft_putendl_exit(X, -1)
@@ -34,7 +34,7 @@ typedef struct			s_color
 	int					end_green;
 	int					start_blue;
 	int					end_blue;
-	int					maxiter;
+	double				p;
 }						t_color;
 
 typedef struct			s_calcul
@@ -63,14 +63,13 @@ typedef struct			s_fractol
 	int					mouse_y;
 	int					recalc;
 	int					palette;
+	int					offset;
 }						t_fractol;
 
 void					draw_image(t_fractol *f);
 int						pixel2image(t_fractol *f, int x, int y, int colour);
-int						palette(t_fractol *f, int n);
-
-int						init(int num);
-int						mandel_wiki(int num);
+int						get_color(t_fractol *f, double n);
+int						get_palette(t_fractol *f, int num);
 
 void					init_mndlbrt(t_fractol *f);
 void					draw_mandelbrot(t_fractol *f);
@@ -95,11 +94,13 @@ void					draw_buffalo(t_fractol *f);
 
 int						mouse_hook(int kcode, int x, int y, t_fractol *f);
 int						key_hook(int kcode, t_fractol *f);
+int						release_hook(int kcode, t_fractol *f);
 int						exit_redcross(void *param);
 void					reset(t_fractol *f);
 int						mouse_place(int x, int y, t_fractol *f);
 
 void					zoom_in(t_fractol *f, int x, int y);
 void					zoom_out(t_fractol *f, int x, int y);
+void					zoom_center(t_fractol *f);
 
 #endif

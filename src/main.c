@@ -6,7 +6,7 @@
 /*   By: eaptekar <eaptekar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/19 17:15:18 by eaptekar          #+#    #+#             */
-/*   Updated: 2018/08/25 18:40:35 by eaptekar         ###   ########.fr       */
+/*   Updated: 2018/08/26 20:30:21 by eaptekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	reset(t_fractol *f)
 
 static void	fractal_select(char *str, t_fractol *f)
 {
+	f->palette = 1;
 	if (!ft_strcmp(str, "mandelbrot"))
 		f->frac = 1;
 	else if (!ft_strcmp(str, "julia"))
@@ -66,6 +67,7 @@ int			main(int argc, char **argv)
 	fractal_select(argv[1], &f);
 	mlx_hook(f.win_ptr, 17, (1L << 17), exit_redcross, &f);
 	mlx_hook(f.win_ptr, 2, (1L << 0), key_hook, &f);
+	mlx_hook(f.win_ptr, 3, (1L << 0), release_hook, &f);
 	mlx_mouse_hook(f.win_ptr, mouse_hook, &f);
 	mlx_hook(f.win_ptr, 6, (1L << 6), mouse_place, &f);
 	mlx_loop(f.mlx_ptr);

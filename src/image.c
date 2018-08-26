@@ -6,7 +6,7 @@
 /*   By: eaptekar <eaptekar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/19 20:54:39 by eaptekar          #+#    #+#             */
-/*   Updated: 2018/08/25 21:16:59 by eaptekar         ###   ########.fr       */
+/*   Updated: 2018/08/26 20:25:46 by eaptekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int		pixel2image(t_fractol *f, int x, int y, int color)
 void	draw_image(t_fractol *f)
 {
 	f->img_ptr = mlx_new_image(f->mlx_ptr, WIN_SIZE, WIN_SIZE);
-	f->palette = 1;
 	if (f->frac == 1)
 		draw_mandelbrot(f);
 	else if (f->frac == 2)
@@ -50,36 +49,47 @@ void	draw_image(t_fractol *f)
 	mlx_put_image_to_window(f->mlx_ptr, f->win_ptr, f->img_ptr, 0, 0);
 }
 
-static int			clr_calc(t_color pick, int n)
+static int			calc_inter(int start, int end, double p)
+{
+	if (start == end)
+		return (start);
+	return ((int)((double)start + (end - start) * p));
+}
+
+static int			clr_calc(t_color pick, double p)
 {
 	int		red;
 	int		green;
 	int		blue;
 	int		color;
 
-	red = pick.start_red + (pick.end_red - pick.start_red) * n / pick.maxiter;
-	green = pick.start_green + (pick.end_green - pick.start_green) * n / pick.maxiter;
-	blue = pick.start_blue + (pick.end_blue - pick.start_blue) * n / pick.maxiter;
+	red = calc_inter(pick.start_red, pick.end_red, p);
+	green = calc_inter(pick.start_green, pick.end_green, p);
+	blue = calc_inter(pick.start_blue, pick.end_blue, p);
 	color = blue | (green << 8) | (red << 16);
 	return (color);
 }
 
-int				palette(t_fractol *f, int n)
+int				get_color(t_fractol *f, double n)
 {
+	int		color1;
+	int		color2;
 	int		color;
+	int		num;
 	t_color	pick;
 
-	// if (f->palette == 1)
-	// 	color = init(num);
-	// else if (f->palette == 2)
-	// 	color = mandel_wiki(num);
-	pick.start_red = 173;
-	pick.end_red = 0;
-	pick.start_green = 40;
-	pick.end_green = 250;
-	pick.start_blue = 73;
-	pick.end_blue = 218;
-	pick.maxiter = f->maxiter;
-	color = clr_calc(pick, n);
+	int		index;
+
+	index = ((int)(5 * n / f->maxiter) + f->offset) % 5;
+	color2 = get_palette(f, index);
+	color1 = get_palette(f, index + 1);
+	pick.start_red = (color1 & 0xFF0000) >> 16;
+	pick.end_red = (color2 & 0xFF0000) >> 16;
+	pick.start_green = (color1 & 0xFF00) >> 8;
+	pick.end_green = (color2 & 0xFF00) >> 8;
+	pick.start_blue = (color1 & 0xFF);
+	pick.end_blue = (color2 & 0xFF);
+	pick.p = fmod(n / f->maxiter, 1.0f / 5) * 5;
+	color = clr_calc(pick, (int)(pick.p + 1) - pick.p);
 	return (color);
 }

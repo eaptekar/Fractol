@@ -6,7 +6,7 @@
 #    By: eaptekar <eaptekar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/08/19 16:36:39 by eaptekar          #+#    #+#              #
-#    Updated: 2018/08/25 19:26:40 by eaptekar         ###   ########.fr        #
+#    Updated: 2018/08/26 18:18:14 by eaptekar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRCS	=	main.c		image.c		zoom.c		hooks.c	\
 SRC_DIR	= src/
 OBJ_DIR	= obj/
 I_INC	= includes
-I_LFT	= libft/
+I_LFT	= libft/includes
 P_LFT	= libft
 
 INC = $(addprefix -I,$(I_INC) $(I_LFT))
@@ -46,7 +46,7 @@ $(NAME): $(OBJ)
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR) $(OBJ_DIR)/fractals
 	@$(CC) $(FLAGS) -o $@ -c $^ $(INC)
-	@echo -n ████████████
+	@echo -n █
 
 clean:
 	@make -C $(P_LFT) clean
