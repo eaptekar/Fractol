@@ -6,7 +6,7 @@
 /*   By: eaptekar <eaptekar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/22 15:25:55 by eaptekar          #+#    #+#             */
-/*   Updated: 2018/08/29 11:46:36 by eaptekar         ###   ########.fr       */
+/*   Updated: 2018/08/29 17:17:02 by eaptekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ static void	add_hook(int kcode, t_fractol *f)
 		else
 			f->recalc = 1;
 	}
+	else if (kcode == K_UP)
+		f->center_y += f->size * 0.01;
+	else if (kcode == K_DOWN)
+		f->center_y -= f->size * 0.01;
+	else if (kcode == K_LEFT)
+		f->center_x += f->size * 0.01;
+	else if (kcode == K_RIGHT)
+		f->center_x -= f->size * 0.01;
 }
 
 int			key_hook(int kcode, t_fractol *f)
@@ -55,8 +63,7 @@ int			key_hook(int kcode, t_fractol *f)
 		f->palette--;
 	else if (kcode == K_D && f->palette <= 3)
 		f->palette++;
-	else if (kcode == K_TAB || kcode == K_Q)
-		add_hook(kcode, f);
+	add_hook(kcode, f);
 	draw_image(f);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: eaptekar <eaptekar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/19 17:16:17 by eaptekar          #+#    #+#             */
-/*   Updated: 2018/08/29 11:47:43 by eaptekar         ###   ########.fr       */
+/*   Updated: 2018/08/29 17:59:38 by eaptekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ void					fractal_change(int kcode, t_fractol *f);
 int						exit_redcross(void *param);
 void					reset(t_fractol *f);
 int						mouse_place(int x, int y, t_fractol *f);
+void					put_legend(t_fractol *f);
 
 void					zoom_in(t_fractol *f, int x, int y);
 void					zoom_out(t_fractol *f, int x, int y);
