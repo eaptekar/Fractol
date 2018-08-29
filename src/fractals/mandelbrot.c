@@ -6,15 +6,11 @@
 /*   By: eaptekar <eaptekar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/19 19:46:49 by eaptekar          #+#    #+#             */
-/*   Updated: 2018/08/26 19:30:48 by eaptekar         ###   ########.fr       */
+/*   Updated: 2018/08/29 11:44:04 by eaptekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-/*
-** Need to add some colors
-*/
 
 void			init_mndlbrt(t_fractol *f)
 {
@@ -25,7 +21,7 @@ void			init_mndlbrt(t_fractol *f)
 	f->frac = 1;
 }
 
-static double		calcul_iter_mndlbrt(t_fractol *f, int x, int y)
+static double	calcul_iter_mndlbrt(t_fractol *f, int x, int y)
 {
 	t_calcul	mb;
 	int			n;

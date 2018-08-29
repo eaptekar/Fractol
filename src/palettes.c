@@ -6,7 +6,7 @@
 /*   By: eaptekar <eaptekar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/25 18:56:05 by eaptekar          #+#    #+#             */
-/*   Updated: 2018/08/26 20:00:24 by eaptekar         ###   ########.fr       */
+/*   Updated: 2018/08/29 11:49:39 by eaptekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,20 @@ static int		google(int num)
 	return (colors[num]);
 }
 
-int		get_palette(t_fractol *f, int num)
+static int		fiftyshades(int num)
+{
+	int		colors[6];
+
+	colors[0] = 0x101010;
+	colors[1] = 0x404040;
+	colors[2] = 0x7F7F7F;
+	colors[3] = 0xBFBFBF;
+	colors[4] = 0xFFFFFF;
+	colors[5] = 0xFFFFFF;
+	return (colors[num]);
+}
+
+int				get_palette(t_fractol *f, int num)
 {
 	int		color;
 
@@ -61,34 +74,7 @@ int		get_palette(t_fractol *f, int num)
 		color = psychedelic(num);
 	else if (f->palette == 3)
 		color = google(num);
+	else if (f->palette == 4)
+		color = fiftyshades(num);
 	return (color);
 }
-
-// int		pal1(int num)
-// {
-// 	int		colors[22];
-
-// 	colors[0] = 0xA00A1E;
-// 	colors[1] = 0x930A28;
-// 	colors[2] = 0x860A32;
-// 	colors[3] = 0x790A3C;
-// 	colors[4] = 0x6C0A46;
-// 	colors[5] = 0x5F0A50;
-// 	colors[6] = 0x520A5A;
-// 	colors[7] = 0x460A64;
-// 	colors[8] = 0x450B6C;
-// 	colors[9] = 0x3F0C70;
-// 	colors[10] = 0x3A0D74;
-// 	colors[11] = 0x340E78;
-// 	colors[12] = 0x2F0F7C;
-// 	colors[13] = 0x291080;
-// 	colors[14] = 0x1E1288;
-// 	colors[15] = 0x19148C;
-// 	colors[16] = 0x1E1987;
-// 	colors[17] = 0x652E5A;
-// 	colors[18] = 0xAD442D;
-// 	colors[19] = 0xF55A00;
-// 	colors[20] = 0xFA5F00;
-// 	colors[21] = 0xFF6400;	
-// 	return (colors[num]);
-// }

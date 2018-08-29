@@ -6,7 +6,7 @@
 /*   By: eaptekar <eaptekar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/25 15:45:09 by eaptekar          #+#    #+#             */
-/*   Updated: 2018/08/26 19:13:08 by eaptekar         ###   ########.fr       */
+/*   Updated: 2018/08/29 11:45:17 by eaptekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void			init_tricorn(t_fractol *f)
 	f->frac = 4;
 }
 
-static int		calcul_iter_tricorn(t_fractol *f, int x, int y)
+static double	calcul_iter_tricorn(t_fractol *f, int x, int y)
 {
 	t_calcul	mb;
 	int			n;

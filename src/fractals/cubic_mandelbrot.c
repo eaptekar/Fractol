@@ -6,7 +6,7 @@
 /*   By: eaptekar <eaptekar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/25 16:14:50 by eaptekar          #+#    #+#             */
-/*   Updated: 2018/08/26 19:12:55 by eaptekar         ###   ########.fr       */
+/*   Updated: 2018/08/29 11:45:40 by eaptekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void			init_mcube(t_fractol *f)
 	f->frac = 5;
 }
 
-static int		calcul_iter_mcube(t_fractol *f, int x, int y)
+static double	calcul_iter_mcube(t_fractol *f, int x, int y)
 {
 	t_calcul	mb;
 	int			n;
@@ -36,7 +36,7 @@ static int		calcul_iter_mcube(t_fractol *f, int x, int y)
 	mb.b = mb.b_0;
 	while ((n < f->maxiter) && (mb.a * mb.a + mb.b * mb.b < 4))
 	{
-		mb.temp = mb.a * mb.a * mb.a -  3 * mb.a * mb.b * mb.b + mb.a_0;
+		mb.temp = mb.a * mb.a * mb.a - 3 * mb.a * mb.b * mb.b + mb.a_0;
 		mb.b = 3 * mb.a * mb.a * mb.b - mb.b * mb.b * mb.b + mb.b_0;
 		mb.a = mb.temp;
 		n++;

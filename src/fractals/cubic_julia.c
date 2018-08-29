@@ -6,7 +6,7 @@
 /*   By: eaptekar <eaptekar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/25 16:23:43 by eaptekar          #+#    #+#             */
-/*   Updated: 2018/08/26 19:04:31 by eaptekar         ###   ########.fr       */
+/*   Updated: 2018/08/29 11:45:27 by eaptekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void			init_jcube(t_fractol *f)
 	f->st_y = f->center_y;
 }
 
-static int		calcul_iter_jcube(t_fractol *f, int x, int y)
+static double	calcul_iter_jcube(t_fractol *f, int x, int y)
 {
 	t_calcul	mb;
 	int			n;
@@ -42,7 +42,7 @@ static int		calcul_iter_jcube(t_fractol *f, int x, int y)
 	mb.b_0 = (f->mouse_y * f->st_size / WIN_SIZE) + f->st_y - (f->st_size / 2);
 	while ((n < f->maxiter) && (mb.a * mb.a + mb.b * mb.b < 4))
 	{
-		mb.temp = mb.a * mb.a * mb.a -  3 * mb.a * mb.b * mb.b + mb.a_0;
+		mb.temp = mb.a * mb.a * mb.a - 3 * mb.a * mb.b * mb.b + mb.a_0;
 		mb.b = 3 * mb.a * mb.a * mb.b - mb.b * mb.b * mb.b + mb.b_0;
 		mb.a = mb.temp;
 		n++;

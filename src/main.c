@@ -6,13 +6,13 @@
 /*   By: eaptekar <eaptekar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/19 17:15:18 by eaptekar          #+#    #+#             */
-/*   Updated: 2018/08/26 20:30:21 by eaptekar         ###   ########.fr       */
+/*   Updated: 2018/08/29 11:49:03 by eaptekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	reset(t_fractol *f)
+void		reset(t_fractol *f)
 {
 	if (f->frac == 1)
 		init_mndlbrt(f);
@@ -29,6 +29,25 @@ void	reset(t_fractol *f)
 	else if (f->frac == 7)
 		init_buffalo(f);
 	draw_image(f);
+}
+
+void		fractal_change(int kcode, t_fractol *f)
+{
+	if (kcode == K_1)
+		f->frac = 1;
+	else if (kcode == K_2)
+		f->frac = 2;
+	else if (kcode == K_3)
+		f->frac = 3;
+	else if (kcode == K_4)
+		f->frac = 4;
+	else if (kcode == K_5)
+		f->frac = 5;
+	else if (kcode == K_6)
+		f->frac = 6;
+	else if (kcode == K_7)
+		f->frac = 7;
+	reset(f);
 }
 
 static void	fractal_select(char *str, t_fractol *f)
@@ -67,7 +86,6 @@ int			main(int argc, char **argv)
 	fractal_select(argv[1], &f);
 	mlx_hook(f.win_ptr, 17, (1L << 17), exit_redcross, &f);
 	mlx_hook(f.win_ptr, 2, (1L << 0), key_hook, &f);
-	mlx_hook(f.win_ptr, 3, (1L << 0), release_hook, &f);
 	mlx_mouse_hook(f.win_ptr, mouse_hook, &f);
 	mlx_hook(f.win_ptr, 6, (1L << 6), mouse_place, &f);
 	mlx_loop(f.mlx_ptr);

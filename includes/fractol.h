@@ -6,7 +6,7 @@
 /*   By: eaptekar <eaptekar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/19 17:16:17 by eaptekar          #+#    #+#             */
-/*   Updated: 2018/08/26 20:34:47 by eaptekar         ###   ########.fr       */
+/*   Updated: 2018/08/29 11:47:43 by eaptekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct			s_color
 	int					start_blue;
 	int					end_blue;
 	double				p;
+	int					index;
 }						t_color;
 
 typedef struct			s_calcul
@@ -94,7 +95,7 @@ void					draw_buffalo(t_fractol *f);
 
 int						mouse_hook(int kcode, int x, int y, t_fractol *f);
 int						key_hook(int kcode, t_fractol *f);
-int						release_hook(int kcode, t_fractol *f);
+void					fractal_change(int kcode, t_fractol *f);
 int						exit_redcross(void *param);
 void					reset(t_fractol *f);
 int						mouse_place(int x, int y, t_fractol *f);

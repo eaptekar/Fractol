@@ -6,7 +6,7 @@
 /*   By: eaptekar <eaptekar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/22 15:25:55 by eaptekar          #+#    #+#             */
-/*   Updated: 2018/08/26 20:34:35 by eaptekar         ###   ########.fr       */
+/*   Updated: 2018/08/29 11:46:36 by eaptekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,30 +19,21 @@ int			exit_redcross(void *param)
 	return (0);
 }
 
-static void	fractal_change(int kcode, t_fractol *f)
+static void	add_hook(int kcode, t_fractol *f)
 {
-	if (kcode == K_1)
-		f->frac = 1;
-	else if (kcode == K_2)
-		f->frac = 2;
-	else if (kcode == K_3)
-		f->frac = 3;
-	else if (kcode == K_4)
-		f->frac = 4;
-	else if (kcode == K_5)
-		f->frac = 5;
-	else if (kcode == K_6)
-		f->frac = 6;
-	else if (kcode == K_7)
-		f->frac = 7;
-	reset(f);
-}
-
-static void		epilepsie(t_fractol *f)
-{
-	f->offset++;
-	if (f->offset == 5)
-		f->offset = 0;
+	if (kcode == K_TAB)
+	{
+		f->offset++;
+		if (f->offset == 5)
+			f->offset = 0;
+	}
+	else if (kcode == K_Q)
+	{
+		if (f->recalc)
+			f->recalc = 0;
+		else
+			f->recalc = 1;
+	}
 }
 
 int			key_hook(int kcode, t_fractol *f)
@@ -62,28 +53,13 @@ int			key_hook(int kcode, t_fractol *f)
 		zoom_center(f);
 	else if (kcode == K_A && f->palette >= 2)
 		f->palette--;
-	else if (kcode == K_D && f->palette <= 2)
+	else if (kcode == K_D && f->palette <= 3)
 		f->palette++;
-	else if (kcode == K_TAB)
-		epilepsie(f);
-	else if (kcode == K_Q)
-	{
-		if (f->recalc)
-			f->recalc = 0;
-		else
-			f->recalc = 1;
-	}
+	else if (kcode == K_TAB || kcode == K_Q)
+		add_hook(kcode, f);
 	draw_image(f);
 	return (0);
 }
-
-int			release_hook(int kcode, t_fractol *f)
-{
-	if (kcode == K_TAB)
-		;
-	return (0);
-}
-
 
 int			mouse_hook(int kcode, int x, int y, t_fractol *f)
 {
@@ -101,7 +77,7 @@ int			mouse_hook(int kcode, int x, int y, t_fractol *f)
 	return (0);
 }
 
-int		mouse_place(int x, int y, t_fractol *f)
+int			mouse_place(int x, int y, t_fractol *f)
 {
 	if (f->recalc)
 	{

@@ -6,7 +6,7 @@
 /*   By: eaptekar <eaptekar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/25 15:26:43 by eaptekar          #+#    #+#             */
-/*   Updated: 2018/08/26 19:12:44 by eaptekar         ###   ########.fr       */
+/*   Updated: 2018/08/29 11:45:50 by eaptekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void			init_ship(t_fractol *f)
 	f->frac = 3;
 }
 
-static int		calcul_iter_ship(t_fractol *f, int x, int y)
+static double	calcul_iter_ship(t_fractol *f, int x, int y)
 {
 	t_calcul	mb;
 	int			n;

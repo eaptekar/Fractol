@@ -6,15 +6,13 @@
 /*   By: eaptekar <eaptekar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/19 20:54:39 by eaptekar          #+#    #+#             */
-/*   Updated: 2018/08/26 20:25:46 by eaptekar         ###   ########.fr       */
+/*   Updated: 2018/08/29 11:48:43 by eaptekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-// CHECK ALL MLX RETURNS
-
-int		pixel2image(t_fractol *f, int x, int y, int color)
+int			pixel2image(t_fractol *f, int x, int y, int color)
 {
 	char			*pixel;
 	int				bpp;
@@ -29,7 +27,7 @@ int		pixel2image(t_fractol *f, int x, int y, int color)
 	return (0);
 }
 
-void	draw_image(t_fractol *f)
+void		draw_image(t_fractol *f)
 {
 	f->img_ptr = mlx_new_image(f->mlx_ptr, WIN_SIZE, WIN_SIZE);
 	if (f->frac == 1)
@@ -49,14 +47,14 @@ void	draw_image(t_fractol *f)
 	mlx_put_image_to_window(f->mlx_ptr, f->win_ptr, f->img_ptr, 0, 0);
 }
 
-static int			calc_inter(int start, int end, double p)
+static int	calc_inter(int start, int end, double p)
 {
 	if (start == end)
 		return (start);
 	return ((int)((double)start + (end - start) * p));
 }
 
-static int			clr_calc(t_color pick, double p)
+static int	clr_calc(t_color pick, double p)
 {
 	int		red;
 	int		green;
@@ -70,7 +68,7 @@ static int			clr_calc(t_color pick, double p)
 	return (color);
 }
 
-int				get_color(t_fractol *f, double n)
+int			get_color(t_fractol *f, double n)
 {
 	int		color1;
 	int		color2;
@@ -78,11 +76,9 @@ int				get_color(t_fractol *f, double n)
 	int		num;
 	t_color	pick;
 
-	int		index;
-
-	index = ((int)(5 * n / f->maxiter) + f->offset) % 5;
-	color2 = get_palette(f, index);
-	color1 = get_palette(f, index + 1);
+	pick.index = ((int)(5 * n / f->maxiter) + f->offset) % 5;
+	color2 = get_palette(f, pick.index);
+	color1 = get_palette(f, pick.index + 1);
 	pick.start_red = (color1 & 0xFF0000) >> 16;
 	pick.end_red = (color2 & 0xFF0000) >> 16;
 	pick.start_green = (color1 & 0xFF00) >> 8;

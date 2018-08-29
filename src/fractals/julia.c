@@ -6,7 +6,7 @@
 /*   By: eaptekar <eaptekar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/22 17:46:16 by eaptekar          #+#    #+#             */
-/*   Updated: 2018/08/26 19:04:00 by eaptekar         ###   ########.fr       */
+/*   Updated: 2018/08/29 11:45:56 by eaptekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void			init_julia(t_fractol *f)
 	f->st_y = f->center_y;
 }
 
-static int		calcul_iter_julia(t_fractol *f, int x, int y)
+static double	calcul_iter_julia(t_fractol *f, int x, int y)
 {
 	t_calcul	mb;
 	int			n;

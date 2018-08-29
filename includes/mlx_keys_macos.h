@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eaptekar <eaptekar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/25 17:00:50 by eaptekar          #+#    #+#             */
-/*   Updated: 2018/08/25 17:46:13 by eaptekar         ###   ########.fr       */
+/*   Created: 2018/08/25 17:46:13 by eaptekar          #+#    #+#             */
+/*   Updated: 2018/08/29 11:41:53 by eaptekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MLX_KEYS_MACOS_H
 # define MLX_KEYS_MACOS_H
- 
+
 # define K_ESC			53
 # define K_F1			122
 # define K_F2			120
